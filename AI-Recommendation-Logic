@@ -1,0 +1,61 @@
+# Simple Recommendation System - Movie Suggestions
+print("🎥 Welcome to Movie Recommender!")
+print("Answer a few questions to get personalized recommendations.\n")
+
+# Define some movies with their features
+movies = {
+    "The Shawshank Redemption": ["drama", "crime", "inspirational", "classic"],
+    "Inception": ["scifi", "action", "thriller", "mindbending"],
+    "The Dark Knight": ["action", "crime", "drama", "superhero"],
+    "Forrest Gump": ["drama", "romance", "inspirational", "classic"],
+    "Interstellar": ["scifi", "drama", "adventure", "space"],
+    "The Hangover": ["comedy", "funny"],
+    "Parasite": ["thriller", "drama", "crime"],
+    "Toy Story": ["animation", "family", "kids"],
+    "Avengers: Endgame": ["action", "scifi", "superhero"],
+    "The Notebook": ["romance", "drama"]
+}
+
+def get_recommendations():
+    print("What genres do you like? (You can choose multiple)")
+    print("Options: action, scifi, drama, comedy, romance, thriller, inspirational, animation, family")
+    
+    user_input = input("\nEnter your favorite genres (separated by comma): ").strip().lower()
+    user_preferences = [genre.strip() for genre in user_input.split(",")]
+    
+    # Score each movie based on matching preferences
+    recommendations = []
+    
+    for movie, genres in movies.items():
+        score = sum(1 for genre in user_preferences if genre in genres)
+        if score > 0:
+            recommendations.append((movie, score))
+    
+    # Sort by score (best matches first)
+    recommendations.sort(key=lambda x: x[1], reverse=True)
+    
+    # Display results
+    print("\n" + "="*50)
+    print("🎬 Here are your personalized recommendations:")
+    print("="*50)
+    
+    if recommendations:
+        for i, (movie, score) in enumerate(recommendations[:5], 1):
+            print(f"{i}. {movie} (Match: {score} genres)")
+    else:
+        print("Sorry, no strong matches found. Try different genres!")
+    
+    # Bonus: Ask for mood
+    mood = input("\nWhat's your current mood? (happy, sad, excited, relaxed): ").strip().lower()
+    if mood == "happy" and any("comedy" in user_preferences for user_preferences in [user_preferences]):
+        print("\n💡 Bonus: Since you're in a happy mood, try 'The Hangover'!")
+    
+    print("\nWould you like more recommendations? (yes/no)")
+
+# Run the recommender
+while True:
+    get_recommendations()
+    again = input("\nTry again? (yes/no): ").strip().lower()
+    if again != "yes":
+        print("Thank you for using the Movie Recommender! 🎥")
+        break
