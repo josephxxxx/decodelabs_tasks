@@ -1,0 +1,11 @@
+if user_input in ["hi", "hello", "hey"]:
+    print("Bot: Hello! Nice to meet you 😊")
+elif "how are you" in user_input:
+    print("Bot: I'm doing great, thank you!")
+elif user_input in ["bye", "goodbye", "exit", "quit"]:
+    print("Bot: Goodbye! Have a great day! 👋")
+    break
+else:
+    print("Bot: Sorry, I didn't understand that.")
+
+print() 
